@@ -25,6 +25,12 @@ filetype plugin indent on
 set autoindent
 set smartindent
 
+" Add clipboard support for macOS
+set clipboard=unnamed
+
+" Add mouse support in Terminal
+set mouse=n
+
 " Show existing tap with 2 spaces width
 set tabstop=2
 " When indenting with '>', use 2 spaces width
@@ -41,6 +47,7 @@ set smartcase
 nnoremap <esc> :noh<return><esc>
 " Automatically reread files that have been changed externally
 set autoread
+au FocusGained * :checktime
 
 " Highlight the 80th column
 set colorcolumn=80
@@ -50,6 +57,10 @@ set number
 
 " Set the window title with the current file name, status and directory
 set title
+
+" Remap popup dialog navigation to Tab
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Theme
 let g:airline_theme='onedark'
@@ -81,3 +92,6 @@ nnoremap <Leader>a :Ack!<Space>
 if has('nvim')
   let g:deoplete#enable_at_startup = 1
 endif
+
+" CtrlP
+nmap ; :CtrlPBuffer<CR>
