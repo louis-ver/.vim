@@ -1,12 +1,11 @@
-
+" Make vim plugins play nice with nvim
+set runtimepath^=~/.vim runtimepath+=~/.vim/after
+let &packpath = &runtimepath
 " Load plugins
 execute pathogen#infect()
 call pathogen#helptags()
 
 let mapleader = ","
-
-set runtimepath^=~/.vim
-let &packpath = &runtimepath
 
 packloadall
 silent! helptags ALL
@@ -22,7 +21,6 @@ filetype plugin indent on
 
 " Copy the indent from the previous line when starting a new line.
 " Automatically indent between curly braces and indent keywords
-set autoindent
 set smartindent
 
 " Add clipboard support for macOS
@@ -31,11 +29,14 @@ set clipboard=unnamed
 " Add mouse support in Terminal
 set mouse=n
 
-" Show existing tap with 2 spaces width
-set tabstop=2
-" When indenting with '>', use 2 spaces width
-set shiftwidth=2
-" On pressing tab, insert 2 spaces
+set autoindent
+set complete-=i
+set showmatch
+set smarttab
+
+set et
+set tabstop=4
+set shiftwidth=4
 set expandtab
 " Highlight search results
 set hlsearch
@@ -63,12 +64,8 @@ inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Theme
-let g:airline_theme='onedark'
+let g:airline_theme='solarized'
 syntax on
-colorscheme onedark
-
-" Airline
-let g:airline_powerline_fonts = 1
 
 " NERDTree
 map <Leader>n :NERDTreeToggle<CR>
@@ -80,9 +77,7 @@ let NERDTreeChDirMode=2
 " Run Ack against word under cursor
 nnoremap <leader>s :Ack! <c-r><c-w><CR>
 " Use the_silver_searcher as engine
-if executable('ag')
-	let g:ackprg = 'ag --vimgrep'
-endif
+let g:ackprg = 'ag --vimgrep'
 
 " Don't jump to the first result automatically
 cnoreabbrev Ack Ack!
@@ -92,6 +87,8 @@ nnoremap <Leader>a :Ack!<Space>
 if has('nvim')
   let g:deoplete#enable_at_startup = 1
 endif
+" Disable Preview pane
+set completeopt-=preview
 
 " CtrlP
 nmap ; :CtrlPBuffer<CR>
